@@ -1,41 +1,42 @@
 // Copyright (c) 2020 Mr. Coxall All rights reserved
 //
 // Created by: Tymofii
-// Created on: Sep 2020
+// Created on: Sep 2024
 // This file contains the JS functions for index.html
 
-"use strict";
+"use strict"
 
-function initialize() {
-}
+function calculateCost() {
+  const size = document.querySelector('input[name="size"]:checked').value
+  const toppings = parseInt(document.querySelector('input[name="topping"]:checked').value)
 
-function calculateOrder() {
-    const prices = {
-        small: 3.00,
-        medium: 5.00,
-        large: 6.00,
-        extraLarge: 10.00,
-        toppings: {
-            1: 1.00,
-            2: 1.75,
-            3: 2.50,
-            4: 3.35
-        },
-        taxRate: 0.13
-    };
+  let sizeCost = 0
+  let toppingsCost = 0
+  const HST = 0.13
 
-    const size = document.querySelector('input[name="size"]:checked').value;
-    const numToppings = parseInt(document.querySelector('input[name="toppings"]:checked').value);
+  if (size == "large") {
+    sizeCost = 6.00
+  } else if (size == "extraLarge") {
+    sizeCost = 10.00
+  }
 
-    const subtotal = prices[size] + (numToppings * prices.toppings[numToppings]);
-    const tax = subtotal * prices.taxRate;
-    const total = subtotal + tax;
+  if (toppings == 1) {
+    toppingsCost = 1.00
+  } else if (toppings == 2) {
+    toppingsCost = 1.75
+  } else if (toppings == 3) {
+    toppingsCost = 2.50
+  } else if (toppings == 4) {
+    toppingsCost = 3.35
+  }
 
-    // Вывод результатов
-    document.getElementById('result').innerHTML = `
-        <p>Subtotal: $${subtotal.toFixed(2)}</p>
-        <p>Tax (HST): $${tax.toFixed(2)}</p>
-        <p>Total: $${total.toFixed(2)}</p>
-    `;
-    document.getElementById('result').style.display = 'block';
+  const subtotal = sizeCost + toppingsCost
+  const tax = subtotal * HST
+  const totalCost = subtotal + tax
+
+  document.getElementById("calculationResult").innerHTML = `
+    <p>Subtotal: $${subtotal.toFixed(2)}</p>
+    <p>Tax (HST): $${tax.toFixed(2)}</p>
+    <p>Total Cost: $${totalCost.toFixed(2)}</p>
+  `
 }
